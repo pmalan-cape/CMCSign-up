@@ -1,4 +1,4 @@
-
+console.log('✅ script.js loaded');
 const products = [
   { id: 'membership', name: 'Membership', price: 500.00, img: 'assets/membership.png', max: 1 },
   { id: 'shirt', name: 'Club Shirt', price: 200.00, img: 'assets/shirt.png' },
