@@ -66,6 +66,7 @@ function attachListeners() {
 }
 
 function proceedToPayment() {
+   console.log('✅ Proceed button clicked');
   const total = calculateTotal();
   if (total <= 0) {
     alert('Please choose at least one product.');
@@ -77,12 +78,19 @@ function proceedToPayment() {
   // If Yoco expects cents, change to (total*100).toFixed(0). For now we pass rand with 2 decimals.
   const amount = total.toFixed(2);
   const url = `${baseUrl}?amount=${encodeURIComponent(amount)}&reference=${encodeURIComponent(reference)}`;
+  console.log('✅ Redirecting to:', url);
   window.location.href = url;
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+  console.log('✅ DOM ready, initializing...');
   renderProducts();
   attachListeners();
   updateSummary();
+  
+  const btn = document.getElementById('payBtn');
+  console.log('✅ Button found?', !!btn);
+  btn.addEventListener('click', proceedToPayment);
+
   document.getElementById('payBtn').addEventListener('click', proceedToPayment);
 });
