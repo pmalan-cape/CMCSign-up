@@ -1,4 +1,6 @@
+
 console.log('✅ script.js loaded');
+
 const products = [
   { id: 'membership', name: 'Membership', price: 500.00, img: 'assets/membership.png', max: 1 },
   { id: 'shirt', name: 'Club Shirt', price: 200.00, img: 'assets/shirt.png' },
@@ -11,13 +13,14 @@ function formatRand(value) {
 }
 
 function renderProducts() {
+  console.log('✅ Rendering products...');
   const grid = document.getElementById('productsGrid');
   grid.innerHTML = '';
   products.forEach(p => {
     const card = document.createElement('div');
     card.className = 'card';
     card.innerHTML = `
-      <img src="${p.img}" alt="${p.name}">
+      ${p.img}
       <div class="card-content">
         <div class="card-title">${p.name}</div>
         <div class="price">${formatRand(p.price)}</div>
@@ -43,21 +46,12 @@ function calculateTotal() {
 
 function updateSummary() {
   const total = calculateTotal();
+  console.log('✅ Updating summary, total:', total);
   document.getElementById('totalAmount').textContent = formatRand(total);
-
-  const list = document.getElementById('selectedList');
-  list.innerHTML = '';
-  products.forEach(p => {
-    const qty = parseInt(document.getElementById(`qty-${p.id}`).value || '0', 10);
-    if (qty > 0) {
-      const li = document.createElement('li');
-      li.textContent = `${qty} × ${p.name} — ${formatRand(qty * p.price)}`;
-      list.appendChild(li);
-    }
-  });
 }
 
 function attachListeners() {
+  console.log('✅ Attaching listeners...');
   products.forEach(p => {
     const qtyEl = document.getElementById(`qty-${p.id}`);
     qtyEl.addEventListener('input', updateSummary);
@@ -66,19 +60,24 @@ function attachListeners() {
 }
 
 function proceedToPayment() {
-   console.log('✅ Proceed button clicked');
+  console.log('✅ Proceed button clicked');
   const total = calculateTotal();
+  console.log('✅ Calculated total:', total);
+
   if (total <= 0) {
     alert('Please choose at least one product.');
     return;
   }
+
   const referenceEl = document.getElementById('reference');
   const reference = referenceEl.value.trim() || 'MembershipBlackFriday';
   const baseUrl = 'https://pay.yoco.com/cape-multisport-club';
-  // If Yoco expects cents, change to (total*100).toFixed(0). For now we pass rand with 2 decimals.
+
+  // If Yoco needs cents: const amount = (total * 100).toFixed(0);
   const amount = total.toFixed(2);
   const url = `${baseUrl}?amount=${encodeURIComponent(amount)}&reference=${encodeURIComponent(reference)}`;
   console.log('✅ Redirecting to:', url);
+
   window.location.href = url;
 }
 
@@ -87,10 +86,8 @@ window.addEventListener('DOMContentLoaded', () => {
   renderProducts();
   attachListeners();
   updateSummary();
-  
+
   const btn = document.getElementById('payBtn');
   console.log('✅ Button found?', !!btn);
   btn.addEventListener('click', proceedToPayment);
-
-  document.getElementById('payBtn').addEventListener('click', proceedToPayment);
 });
