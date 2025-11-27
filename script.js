@@ -12,32 +12,28 @@ function formatRand(value) {
   return `R ${value.toFixed(2)}`;
 }
 
-function renderProducts() {
-  console.log('✅ Rendering products...');
-  const grid = document.getElementById('productsGrid');
-  if (!grid) {
-    console.error('❌ productsGrid element not found');
-    return;
-  }
 
+function renderProducts() {
+  const grid = document.getElementById('productsGrid');
   grid.innerHTML = '';
   products.forEach(p => {
     const card = document.createElement('div');
     card.className = 'card';
     card.innerHTML = `
-      ${p.img}
+      <{p.img}
       <div class="card-content">
         <div class="card-title">${p.name}</div>
         <div class="price">${formatRand(p.price)}</div>
         <div class="quantity-row">
           <label for="qty-${p.id}">Quantity:</label>
-          <input type="number" id="qty-${p.id}" min="0" ${p.max ? `max="${p.max}"` : ''} step="1" value="0" />
+          <input type="number" id="qty-${p.id}" min="0" ${p.max ? `max="${p.max}"` : ''} step="1" value="0">
         </div>
       </div>
     `;
     grid.appendChild(card);
   });
 }
+
 
 function calculateTotal() {
   let total = 0;
