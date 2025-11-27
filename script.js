@@ -22,7 +22,8 @@ function renderProducts() {
     
 
 card.innerHTML = `
-  assets/${p.id}.png
+  <img src="${p.img}" alt="${p.name}">
+
   <div class="card-content">
     <div class="card-title">${p.name}</div>
     <div class="price">${formatRand(p.price)}</div>
