@@ -2,10 +2,10 @@
 console.log('✅ script.js loaded');
 
 const products = [
-  { id: 'membership', name: 'Main Membership', price: 360.00, img: 'assets/membership.png', max: 1 },
-  { id: 'shirt',      name: 'Fam, Junior, Pensioner', price: 245.00, img: 'assets/shirt.png' },
-  { id: 'cap',        name: 'Up Country',        price: 180.00, img: 'assets/cap.png' },
-  { id: 'race',       name: 'ASA', price: 190.00, img: 'assets/race.png' },
+  { id: 'membership', name: 'Main Membership', price: 360.00},
+  { id: 'shirt',      name: 'Fam, Junior, Pensioner', price: 245.00},
+  { id: 'cap',        name: 'Up Country',        price: 180.00 },
+  { id: 'race',       name: 'ASA', price: 190.00 },
 ];
 
 function formatRand(value) {
