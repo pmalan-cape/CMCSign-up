@@ -1,10 +1,13 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cape Multisport Club — Payment</title>
-  <link rel="stylesheet" href="styles.css">
+
+  <!-- Correct CSS link -->
+  styles.css
 </head>
 <body>
   <header class="header">
@@ -14,6 +17,7 @@
 
   <main class="container">
     <section>
+      <!-- This is where products will render -->
       <div id="productsGrid" class="products-grid"></div>
     </section>
 
@@ -22,17 +26,20 @@
         <strong>Total:</strong>
         <div id="totalAmount">R 0.00</div>
       </div>
+
       <div>
         <label for="reference"><strong>Payment reference</strong> (optional):</label>
-        <input id="reference" class="reference-input" type="text" placeholder="e.g., MembershipBlackFriday or YourName2025">
-        <p class="note">This will appear in your Yoco payment reference. Defaults to <em>MembershipBlackFriday</em> if left blank.</p>
+        <input id="reference" class="reference-input" type="text" placeholder="e.g., MembershipBlackFriday or YourName2025" />
+        <p class="note">Defaults to <em>MembershipBlackFriday</em> if left blank.</p>
       </div>
+
       <button id="payBtn" class="button">Proceed to Payment</button>
     </section>
   </main>
 
   <footer class="footer">© Cape Multisport Club</footer>
 
-  <script src="script.js defer"></script>
+  <!-- Correct JS include with defer -->
+  script.js</script>
 </body>
 </html>
