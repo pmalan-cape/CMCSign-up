@@ -3,9 +3,9 @@ console.log('✅ script.js loaded');
 
 const products = [
   { id: 'membership', name: 'Membership', price: 500.00, img: 'assets/membership.png', max: 1 },
-  { id: 'shirt', name: 'Club Shirt', price: 200.00, img: 'assets/shirt.png' },
-  { id: 'cap', name: 'Cap', price: 150.00, img: 'assets/cap.png' },
-  { id: 'race', name: 'Race Entry', price: 100.00, img: 'assets/race.png' },
+  { id: 'shirt',      name: 'Club Shirt', price: 200.00, img: 'assets/shirt.png' },
+  { id: 'cap',        name: 'Cap',        price: 150.00, img: 'assets/cap.png' },
+  { id: 'race',       name: 'Race Entry', price: 100.00, img: 'assets/race.png' },
 ];
 
 function formatRand(value) {
@@ -15,6 +15,11 @@ function formatRand(value) {
 function renderProducts() {
   console.log('✅ Rendering products...');
   const grid = document.getElementById('productsGrid');
+  if (!grid) {
+    console.error('❌ productsGrid element not found');
+    return;
+  }
+
   grid.innerHTML = '';
   products.forEach(p => {
     const card = document.createElement('div');
@@ -38,7 +43,7 @@ function calculateTotal() {
   let total = 0;
   products.forEach(p => {
     const qtyEl = document.getElementById(`qty-${p.id}`);
-    const qty = parseInt(qtyEl.value || '0', 10);
+    const qty = parseInt(qtyEl?.value || '0', 10);
     total += qty * p.price;
   });
   return total;
@@ -47,15 +52,20 @@ function calculateTotal() {
 function updateSummary() {
   const total = calculateTotal();
   console.log('✅ Updating summary, total:', total);
-  document.getElementById('totalAmount').textContent = formatRand(total);
+  const totalEl = document.getElementById('totalAmount');
+  if (totalEl) totalEl.textContent = formatRand(total);
 }
 
 function attachListeners() {
   console.log('✅ Attaching listeners...');
   products.forEach(p => {
     const qtyEl = document.getElementById(`qty-${p.id}`);
-    qtyEl.addEventListener('input', updateSummary);
-    qtyEl.addEventListener('change', updateSummary);
+    if (qtyEl) {
+      qtyEl.addEventListener('input', updateSummary);
+      qtyEl.addEventListener('change', updateSummary);
+    } else {
+      console.warn(`⚠️ Quantity input for ${p.id} not found yet`);
+    }
   });
 }
 
@@ -70,7 +80,7 @@ function proceedToPayment() {
   }
 
   const referenceEl = document.getElementById('reference');
-  const reference = referenceEl.value.trim() || 'MembershipBlackFriday';
+  const reference = referenceEl?.value.trim() || 'MembershipBlackFriday';
   const baseUrl = 'https://pay.yoco.com/cape-multisport-club';
 
   // If Yoco needs cents: const amount = (total * 100).toFixed(0);
@@ -78,16 +88,21 @@ function proceedToPayment() {
   const url = `${baseUrl}?amount=${encodeURIComponent(amount)}&reference=${encodeURIComponent(reference)}`;
   console.log('✅ Redirecting to:', url);
 
-  window.location.href = url;
+  // Use assign() in case CSP dislikes location.href
+  window.location.assign(url);
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  console.log('✅ DOM ready, initializing...');
-  renderProducts();
-  attachListeners();
-  updateSummary();
+  try {
+    console.log('✅ DOM ready, initializing...');
+    renderProducts();
+    attachListeners();
+    updateSummary();
 
-  const btn = document.getElementById('payBtn');
-  console.log('✅ Button found?', !!btn);
-  btn.addEventListener('click', proceedToPayment);
+    const btn = document.getElementById('payBtn');
+    console.log('✅ Button found?', !!btn);
+    if (btn) btn.addEventListener('click', proceedToPayment);
+  } catch (err) {
+    console.error('❌ Initialization error:', err);
+  }
 });
