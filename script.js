@@ -20,17 +20,26 @@ function renderProducts() {
     const card = document.createElement('div');
     card.className = 'card';
     
-    card.innerHTML = `
-      assets/${p.id}.png
-      <div class="card-content">
-        <div class="card-title">${p.name}</div>
-        <div class="price">${formatRand(p.price)}</div>
-        <div class="quantity-row">
-          <label for="qty-${p.id}">Quantity:</label>
-          <input type="number" id="qty-${p.id}" min="0" ${p.max ? `max="${p.max}"` : ''} step="1" value="0" />
-        </div>
-      </div>
-    `;
+
+card.innerHTML = `
+  assets/${p.id}.png
+  <div class="card-content">
+    <div class="card-title">${p.name}</div>
+    <div class="price">${formatRand(p.price)}</div>
+    <div class="quantity-row">
+      <label for="qty-${p.id}">Quantity:</label>
+      <input
+        type="number"
+        id="qty-${p.id}"
+        min="0"
+        ${p.max ? `max="${p.max}"` : ''}
+        step="1"
+        value="0"
+      />
+    </div>
+  </div>
+`;
+
 
     grid.appendChild(card);
   });
