@@ -2,7 +2,7 @@
 console.log('✅ script.js loaded');
 
 const products = [
-  { id: 'membership', name: 'Main Membership', price: 360.00},
+  { id: 'membership', name: 'Main Member', price: 360.00},
   { id: 'shirt',      name: 'Fam, Junior, Pensioner', price: 245.00},
   { id: 'cap',        name: 'Up Country',        price: 180.00 },
   { id: 'race',       name: 'ASA', price: 190.00 },
